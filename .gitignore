@@ -1,0 +1,12 @@
+__pycache__/
+*.egg-info/
+.venv/
+.pytest_cache/
+.env
+
+# Working state: triage output and drafts for live posts. Commit examples/, not state/.
+state/
+
+# Experiment scratch (venvs, downloaded images, raw load-test dumps). Commit results/ and FINDINGS.md.
+experiments/**/.venv/
+experiments/**/scratch/

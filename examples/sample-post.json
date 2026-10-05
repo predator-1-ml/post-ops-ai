@@ -1,0 +1,114 @@
+{
+  "id": "7512421991325376512",
+  "url": "https://www.linkedin.com/posts/ajeya-krishna12_llm-aiengineering-mlops-share-7512421991325376512-QMtv/",
+  "author": "Ajeya Krishna",
+  "captured_at": "synthetic",
+  "text": "Your LLM gateway adds 0.66 ms of latency.\nYour LLM call takes 812 ms.\nStop worrying about the gateway.\n\nMost teams I talk to skip an AI gateway for one reason:\n\"It's another hop. It'll slow us down.\"\n\nThe numbers say otherwise.\n\nLiteLLM's new Rust gateway benchmarks at:\n→ 0.66 ms added latency (p99)\n→ ~22 MB memory at rest\n→ 2,800+ requests/sec at ~21% CPU\n\nThat's ~0.08% of a typical LLM call.\n\nMeanwhile, here's what that 0.66 ms buys you on every single request:\n\n1. Virtual keys: no raw provider keys in your apps\n2. Rate limits: TPM/RPM per team or model\n3. Hard budgets: at the cap, requests stop\n4. Guardrails: PII masking and prompt-injection checks\n5. Semantic caching: repeat prompts cost $0\n6. Smart routing: cheap models for easy prompts, strong ones for hard prompts\n7. Auto fallback: OpenAI returns 429, Claude answers instead\n8. Full tracing: every request, every dollar, every team\n\nAnd your code?\nStill the OpenAI SDK. You only change the base_url.\n\nThe GIF shows one request going through all 8 steps, including a live fallback and a cache hit.\n\nThe real question isn't \"will a gateway slow us down?\"\nIt's \"can we afford to run LLMs in production without one?\"\n\nAre you calling LLM providers directly, or through a gateway?\n\n#LLM #AIEngineering #MLOps #PlatformEngineering #GenAI",
+  "comments": [
+    {
+      "id": "c01",
+      "author": "Commenter A",
+      "headline": "",
+      "age": "14h",
+      "text": "In our setup the gateway was never the slow part; the model call was. What mattered was stopping a team at its budget and keeping fallback responses the same shape.",
+      "replies": [
+        {
+          "author": "Ajeya Krishna",
+          "is_post_author": true,
+          "text": "Commenter A For your problem, the right approach would be to thoroughly test every prompt and model you plan to configure as a fallback.\n\nWe shouldn't add a model to the fallback chain without first running regression tests against a representative golden dataset. This allows us to compare the fallback model's behavior with the primary model and verify that quality remains within acceptable thresholds.\n\nAlong with regression testing, we should have output validation checks in place for correctness, format, safety, and any use-case-specific constraints. This gives us measurable confidence that switching to a fallback model won't unexpectedly degrade the user experience."
+        }
+      ]
+    },
+    {
+      "id": "c02",
+      "author": "Commenter B",
+      "headline": "",
+      "age": "10h",
+      "text": "Is anything critical missing from this list?"
+    },
+    {
+      "id": "c03",
+      "author": "Commenter C",
+      "headline": "",
+      "age": "10h",
+      "text": "Great post!"
+    },
+    {
+      "id": "c04",
+      "author": "Commenter D",
+      "headline": "",
+      "age": "10h",
+      "text": "Wouldn't a plain reverse proxy handle the auth and session part better?"
+    },
+    {
+      "id": "c05",
+      "author": "Commenter E",
+      "headline": "",
+      "age": "10h",
+      "text": "From an architecture standpoint this is a no-brainer."
+    },
+    {
+      "id": "c06",
+      "author": "Commenter F",
+      "headline": "",
+      "age": "9h",
+      "text": "Every step here guards the model call, none guards what an agent does with the answer. Is anyone putting a policy check on tool calls before they run?"
+    },
+    {
+      "id": "c07",
+      "author": "Commenter G",
+      "headline": "",
+      "age": "9h",
+      "text": "Wasn't this project compromised recently?"
+    },
+    {
+      "id": "c08",
+      "author": "Commenter H",
+      "headline": "",
+      "age": "9h",
+      "text": "In my reproducible benchmark the p99 for streaming chat completions was 300 ms. What was your methodology? My benchmark is here, tell me if anything looks unfair:\nhttps://github.com/example-org/gateway-benchmark/"
+    },
+    {
+      "id": "c09",
+      "author": "Commenter I",
+      "headline": "",
+      "age": "8h",
+      "text": "That's still too slow."
+    },
+    {
+      "id": "c10",
+      "author": "Commenter J",
+      "headline": "",
+      "age": "8h",
+      "text": "0.66 ms answers 'is the gateway fast enough' but not 'is it safe enough'. I'd also benchmark failure propagation, retry amplification and cache correctness. The docs themselves warn that semantic caching can misbehave on agentic traffic."
+    },
+    {
+      "id": "c11",
+      "author": "Commenter K",
+      "headline": "",
+      "age": "8h",
+      "text": "The ops work of building budgets, key rotation and fallbacks yourself dwarfs 0.66 ms."
+    },
+    {
+      "id": "c12",
+      "author": "Commenter L",
+      "headline": "",
+      "age": "8h",
+      "text": "Is OTel already integrated? If I just make LiteLLM calls, would traces be logged automatically?"
+    },
+    {
+      "id": "c13",
+      "author": "Commenter M",
+      "headline": "",
+      "age": "8h",
+      "text": "Sub-millisecond overhead is a small trade-off for built-in caching and fallbacks."
+    },
+    {
+      "id": "c14",
+      "author": "Commenter N",
+      "headline": "",
+      "age": "6h",
+      "text": "The p99 does a lot of work here. What do the median and p99.9 look like under load?"
+    }
+  ]
+}
