@@ -10,3 +10,4 @@ state/
 # Experiment scratch (venvs, downloaded images, raw load-test dumps). Commit results/ and FINDINGS.md.
 experiments/**/.venv/
 experiments/**/scratch/
+experiments/**/*.log

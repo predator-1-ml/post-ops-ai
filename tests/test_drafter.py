@@ -16,6 +16,8 @@ def test_check_reply_flags_length_and_foreign_links():
     assert drafter.check_reply("short " + OK) == []
     assert any("exceeds" in p for p in drafter.check_reply("x" * 1251))
     assert any("allowlist" in p for p in drafter.check_reply("see https://evil.example/x"))
+    assert any("dash" in p for p in drafter.check_reply("fast — but not safe"))
+    assert any("dash" in p for p in drafter.check_reply("1–2 ms"))
 
 
 def test_fence_strips_attempts_to_close_the_fence():

@@ -78,6 +78,8 @@ def check_reply(reply: str, allowed_prefixes: list[str] | None = None) -> list[s
     """Problems that must be fixed before a draft is stored. Empty list means it passes."""
     allowed = allowed_prefixes if allowed_prefixes is not None else _allowed_prefixes()
     problems = []
+    if "—" in reply or "–" in reply:
+        problems.append("contains an em or en dash (author style: none)")
     if len(reply) > LINKEDIN_COMMENT_LIMIT:
         problems.append(f"{len(reply)} chars exceeds LinkedIn's {LINKEDIN_COMMENT_LIMIT}")
     for url in _URL_RE.findall(reply):

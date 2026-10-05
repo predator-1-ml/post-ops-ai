@@ -1,0 +1,30 @@
+{
+  "url": "http://127.0.0.1:9999/v1/chat/completions",
+  "stream": true,
+  "mode": "closed",
+  "concurrency": 100,
+  "ok": 1700,
+  "failed": 0,
+  "errors": {},
+  "wall_s": 21.05,
+  "rps": 80.76,
+  "loadgen_cpu_cores": 0.12,
+  "total_ms": {
+    "p50": 1230.46,
+    "p90": 1252.55,
+    "p95": 1276.58,
+    "p99": 1284.1,
+    "p999": null,
+    "max": 1285.01,
+    "mean": 1229.25
+  },
+  "ttft_ms": {
+    "p50": 309.62,
+    "p90": 318.85,
+    "p95": 340.09,
+    "p99": 341.73,
+    "p999": null,
+    "max": 343.91,
+    "mean": 311.62
+  }
+}
